@@ -1,0 +1,67 @@
+create table IF NOT EXISTS menu
+(
+id integer,
+name	text,
+sponsor	text,
+event	text,
+venue	text,
+place	text,
+physical_description text,	
+ocassion	text,
+notes	text,
+call_number	text,
+keywords	text,
+language	text,
+datetime	text,
+date	text,
+location	text,
+location_type	 text,
+currency	text,
+currency_symbol	text,
+status text,
+page_count	integer,
+dish_count integer
+)
+
+
+primary key constraint:
+select * from menu a, menu b
+where a.id = b.id and
+(
+a.name <> b.name or
+a.sponsor <> b.sponsor or
+a.event <> b.event or
+a.venue <> b.venue or
+a.place <> b.place or
+a.physical_description <> b.physical_description or
+a.ocassion <> b.ocassion or
+a.notes <> b.notes or
+a.call_number <> b.call_number or
+a.keywords <> b.keywords or
+a.language <> b.language or
+a.datetime <> b.datetime or
+a.date <> b.date or
+a.location <> b.location or
+a.location_type <> b.location_type or
+a.currency_symbol <> b.currency_symbol or
+a.status <> b.status or
+a.page_count <> b.page_count or
+a.dish_count <> b.dish_count
+)
+disadvantage: data duplication
+
+date check:
+select date(datetime) from menu where (date(datetime) > date('now')) or (date(datetime) < '1840-01-01')
+
+status:
+select * from menu where status not in ('complete','under review')
+
+group by examples:
+select name,location,sponsor,venue,ocassion,event from menu group by event order by location
+select name,location,sponsor,venue,ocassion,event from menu group by sponsor
+
+same can be done fr venue,ocassion or event.
+
+quantity check:
+select * from menu order by dish_count desc
+select * from menu order by page_count desc
